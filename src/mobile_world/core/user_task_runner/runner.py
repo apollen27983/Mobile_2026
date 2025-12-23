@@ -298,7 +298,6 @@ def run_user_task(
 
     if enable_mcp:
         env = AndroidMCPEnvClient(aw_url, device, step_wait_time=step_wait_time)
-        env.reset_tools(filters=["Amap"])
 
         _console.print(
             f"[bold cyan]🔧 Loaded MCP tools:[/bold cyan] {[t['name'] for t in env.tools]}"

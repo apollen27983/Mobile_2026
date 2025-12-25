@@ -1,0 +1,3 @@
+[submodule "resources/mail"]
+	path = resources/mail
+	url = https://github.com/nrgao/mail_fork.git

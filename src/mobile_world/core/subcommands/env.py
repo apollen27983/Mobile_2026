@@ -124,6 +124,14 @@ def configure_parser(subparsers: argparse._SubParsersAction) -> None:
         default=5800,
         help="Starting VNC port number (default: 5800)",
     )
+    launch_parser.add_argument(
+        "--adb-start-port",
+        "--adb_start_port",
+        dest="adb_start_port",
+        type=int,
+        default=5556,
+        help="Starting ADB port number (default: 5556)",
+    )
     _add_common_options(launch_parser, prefix=True)
     launch_parser.add_argument(
         "--image",
@@ -329,7 +337,7 @@ def _launch_containers(args: argparse.Namespace) -> None:
         sys.exit(1)
 
     port_sets = find_available_ports(
-        args.backend_start_port, args.viewer_start_port, args.vnc_start_port, count
+        args.backend_start_port, args.viewer_start_port, args.vnc_start_port, args.adb_start_port, count
     )
 
     if len(port_sets) < count:
@@ -444,12 +452,13 @@ def _launch_containers(args: argparse.Namespace) -> None:
 
     # Pre-compute container configurations
     container_configs = []
-    for i, (backend, viewer, vnc) in enumerate(port_sets):
+    for i, (backend, viewer, vnc, adb) in enumerate(port_sets):
         config = ContainerConfig(
             name=f"{args.name_prefix}_{start_index + i}{'_dev' if args.dev else ''}",
             backend_port=backend,
             viewer_port=viewer,
             vnc_port=vnc,
+            adb_port=adb,
             image=args.image,
             dev_mode=args.dev,
             enable_vnc=args.vnc or args.dev,

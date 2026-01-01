@@ -342,6 +342,7 @@ class ContainerConfig(BaseModel):
     backend_port: int
     viewer_port: int
     vnc_port: int
+    adb_port: int = 5556
     image: str = DEFAULT_IMAGE
     dev_mode: bool = False
     enable_vnc: bool = False
@@ -355,6 +356,7 @@ class LaunchResult(BaseModel):
     name: str
     backend_port: int
     viewer_port: int
+    adb_port: int
     vnc_port: int
     success: bool = False
     ready: bool = False

@@ -27,7 +27,8 @@ RUN apt-get update && \
     x11vnc \
     openbox \
     novnc \
-    websockify && \
+    websockify \
+    socat && \
     update-ca-certificates && \
     ln -sf python3 /usr/bin/python && \
     apt-get clean && \

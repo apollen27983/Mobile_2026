@@ -22,6 +22,10 @@ else
 fi
 /app/docker/start_emulator.sh
 
+# Start ADB relay in background to expose ADB on 0.0.0.0:5556
+socat TCP-LISTEN:5556,fork,reuseaddr,bind=0.0.0.0 TCP:127.0.0.1:5555 &
+SOCAT_PID=$!
+
 uv run mobile-world server --port 6800 >> /var/log/server.log 2>&1 &
 
 # Execute specified command
